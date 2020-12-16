@@ -28,9 +28,10 @@ export const addScreens = function(Scene){
 
 		screens.forEach(x=>{
 			//x.material.map = new THREE.VideoTexture(document.querySelector('#streaming'))
-			x.material = new THREE.MeshStandardMaterial({
+			x.material = new THREE.MeshBasicMaterial({
 				map: new THREE.VideoTexture(document.querySelector("#streaming")),
-				name: "Screen"
+				name: "Screen",
+				side: THREE.DoubleSide
 			})
 			x.material.map.wrapS = x.material.map.wrapT = THREE.RepeatWrapping;
 

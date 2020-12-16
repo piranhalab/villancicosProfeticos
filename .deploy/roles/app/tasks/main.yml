@@ -1,0 +1,63 @@
+---
+- name: update and upgrade
+  apt:
+          update_cache: yes
+          upgrade: yes
+
+- name: install nginx packages
+  apt:
+          pkg:
+                  - nginx
+                  - node-ws
+                  - zip
+                  - unzip
+                  - zlib1g-dev
+                  - zlib1g
+                  - tar
+
+- name: create user dendrita
+  user:
+          name: dendrita
+          shell: /bin/bash
+          groups: root
+          append: yes
+          password: M0adrsnl
+
+- name: create app direcroty 
+  file:
+          path: "/home/dendrita/{{app}}"
+          state: directory
+          owner: dendrita
+          group: dendrita
+          mode: u=rx,g=rx,o=rwx
+
+- name: copy static files app 
+  synchronize:
+          src: "{{ src }}"
+          dest: "/home/dendrita/{{app}}"
+          recursive: yes 
+
+- name: copy nginx  app config 
+  template:
+          src: "files/app.conf"
+          dest: "/home/dendrita/{{app}}.conf"
+          owner: dendrita
+          group: dendrita
+          mode: "u=rx,g=rx,o=rwx"
+- name: remove default config
+  file:
+          path:  /etc/nginx/sites-enabled/default
+          state: absent
+
+- name: create symbolic to config nginx
+  file:
+          src:  "/home/dendrita/{{app}}.conf"
+          dest: /etc/nginx/sites-enabled/{{app}}
+          state: link
+
+- name: restart nginx
+  systemd:
+          name: nginx
+          enabled: yes
+          state: restarted
+

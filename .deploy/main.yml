@@ -1,0 +1,9 @@
+---
+- hosts: website
+  roles:
+    - role: app
+      vars:
+        app: "navidad"
+        src: "../static/"
+        subdom: "navidad"
+    - subdomains

@@ -1,7 +1,7 @@
 import * as THREE from "../three/build/three.module.js";
 
 export const addZordon  = function(Scene){
-		let zordonGeometry = new THREE.CylinderGeometry(15,15,27, 32, 1, true, 0, Math.PI );
+		let zordonGeometry = new THREE.CylinderGeometry(30,30,27, 32, 1, true, 0, Math.PI );
                 //let zordonTexture = new THREE.VideoTexture(  document.querySelector( '#streaming-video' ) );
                 let zordonMaterial = new THREE.MeshBasicMaterial({
                         color: 0xffffff,

@@ -1,7 +1,7 @@
 import { Users } from "./Users.js";
 export const Environment = {
     room: "navidad",
-    initialPos: {x: -9.316098431073272, y: 1.6999999999999893, z: -8.32566309045847},
+    initialPos: {x: 5, y: 1.6999999999999893, z: -1},
     initialRot: { x: 0, y: 0, z: 0 },
     api: true
 };

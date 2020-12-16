@@ -12,6 +12,8 @@ import { addZordon } from "./Scene/Zordon.js";
 import { addCiudad } from "./Scene/Ciudad.js";
 import { addScreens } from "./Scene/Screens.js"
 import { addSnow } from "./Scene/snow.js"
+import { addVilla } from "./Scene/villa.js"
+//import { addAliens } from "./Scene/aliens.js"
 
 export const Scene = {
     scene: new THREE.Scene(),
@@ -19,13 +21,13 @@ export const Scene = {
     renderer: new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance"}),
     loader: new GLTFLoader(),
     dracoLoader: new DRACOLoader(),
-    ambientLight: new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.05 ),
+    ambientLight: new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.5 ),
     pointLight: new THREE.DirectionalLight( 0xffffff, 1, 800 ),
 //	new THREE.SpotLight(0x61647C),
     init: function () {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         document.querySelector("#scene").appendChild(this.renderer.domElement);
-	this.dracoLoader.setDecoderPath( '/dist/three/examples/js/libs/draco/' );
+	this.dracoLoader.setDecoderPath( '/js/three/examples/js/libs/draco/' );
 	this.loader.setDRACOLoader( this.dracoLoader );
 
 	this.renderer.shadowMap.enabled = true;
@@ -60,6 +62,8 @@ export const Scene = {
         this.zordon = addZordon(this)
 	    this.snow = addSnow(this)
 	addScreens(this)
+	addVilla(this)
+//	addAliens(this)
 
         this.animate();
     },
