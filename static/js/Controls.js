@@ -165,6 +165,11 @@ export const Controls = {
                     break;
             }
         });
+
+	document.querySelector("#velocidad").addEventListener("change", function(evt){
+		let value = (1 + parseFloat(evt.target.value)) / 100
+		Controls.vel  = value
+	})
     },
     addMobile: function (Scene) {
 	    let controls = new DeviceOrientationControls(Scene.camera)
@@ -183,6 +188,10 @@ export const Controls = {
 	    })
 
 
+	document.querySelector("#velocidad").addEventListener("change", function(evt){
+		let value = (1 + parseFloat(evt.target.value)) / 100
+		Controls.vel  = value
+	})
 
 	    function update(){
 		requestAnimationFrame(update)

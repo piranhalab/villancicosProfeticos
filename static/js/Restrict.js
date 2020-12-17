@@ -175,7 +175,7 @@ const Doors = {
 
 
 export const addLevels = function(Scene){
-
+/*
 	window.addEventListener("changeUser", function (event) {
 	    const uuid = event.detail.uuid;
 	    let prop = event.detail.prop;
@@ -255,7 +255,7 @@ export const addLevels = function(Scene){
 		}
 		lastTap = currentTime;
 	});
-
+*/
 }
 
 export const restrict = function(p){
