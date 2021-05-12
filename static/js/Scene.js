@@ -17,6 +17,8 @@ import { addVilla } from "./Scene/villa.js"
 import { addCarrusel } from "./Scene/carrusel.js"
 import { addEsferas } from "./Scene/esferas.js"
 import { addPine } from "./Scene/pine.js"
+import { addPortal } from "./Scene/portal.js"
+import { addAngels } from "./Scene/angels.js"
 
 export const Scene = {
     scene: new THREE.Scene(),
@@ -70,7 +72,9 @@ export const Scene = {
 	addCarrusel(this)
 	addEsferas(this) 
 	addPine(this)
+	addPortal(this)
 
+	addAngels(this)
         this.animate();
     },
     audioListener: {},

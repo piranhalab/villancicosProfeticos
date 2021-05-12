@@ -10,7 +10,7 @@ export const addScreens = function(Scene){
 		let flvPlayer = flvjs.createPlayer({
 		    type: "flv",
 		    isLive: true,
-		    url: "https://piranhalab.cc/live/navidad_trans/live"
+		    url: "https://piranhalab.cc/live/visperas_trans/live"
 		});
 		flvPlayer.attachMediaElement(document.querySelector('#streaming'));
 		flvPlayer.load();

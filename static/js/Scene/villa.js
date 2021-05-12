@@ -19,7 +19,7 @@ export const addVilla = function (Scene) {
 		]
 		pos.forEach((P)=>{
 			let cs = casa.clone()
-			cs.position.set(P[0],0,P[1])
+			cs.position.set(P[0],10,P[1])
 			Scene.scene.add(cs)
 		})
 		Scene.villa = casa

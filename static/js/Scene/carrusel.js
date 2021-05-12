@@ -12,7 +12,7 @@ export const addCarrusel = function (Scene) {
 	
 	// asientos
 	const geom2 = new THREE.SphereGeometry( 5, 32, 32 );
-	const mat2 = new THREE.MeshBasicMaterial( {color: 0x00aaff, transparent:true, opacity:0.5,side: THREE.DoubleSide} );
+	const mat2 = new THREE.MeshBasicMaterial( {color: 0x00aaff, transparent:true, opacity:0.75,side: THREE.DoubleSide} );
 	const asiento = new THREE.Mesh( geom2, mat2 );
 
 	let asientos = new THREE.Group()
@@ -39,8 +39,8 @@ export const addCarrusel = function (Scene) {
 	Scene.asientos = asientos
 
 
-	const geom3 = new THREE.BoxBufferGeometry( 5, 5, 5 );
-	const mat3 = new THREE.MeshBasicMaterial( {color: 0x00aa00, transparent:true, opacity:0.2,side: THREE.DoubleSide} );
+	const geom3 = new THREE.BoxBufferGeometry( 5, 10, 5 );
+	const mat3 = new THREE.MeshBasicMaterial( {color: 0x00aa00, transparent:true, opacity:0.9,side: THREE.DoubleSide} );
 	const entrada = new THREE.Mesh( geom3, mat3 );
 	entrada.position.set(24, 2.5, 433)
 	Scene.scene.add(entrada)
@@ -51,6 +51,23 @@ export const addCarrusel = function (Scene) {
 		[26.485394355621537,435.27712900629257],
 		[26.485394355621537,430.27712900629257]
 	]
+
+
+
+	
+	let map;
+	if(detectMob()) {
+		map = new THREE.TextureLoader().load( '/img/but-mob.png' );
+	}else{
+		map = new THREE.TextureLoader().load( '/img/but-pc.png' );
+	}
+	const material = new THREE.SpriteMaterial( { map: map } );
+
+	const sprite = new THREE.Sprite( material );
+	sprite.scale.x = 10
+
+	sprite.position.set(24, 10, 433)
+	Scene.scene.add( sprite );
 	
 	window.addEventListener("keyup", function(event){
 		let key = event.key
@@ -75,4 +92,58 @@ export const addCarrusel = function (Scene) {
 		}
 	})
 
+
+        let timeout;
+        let lastTap = 0;
+        window.addEventListener('touchend', function(event) {
+                if(document.querySelector(".chat-body").classList.contains("show")) return
+                let currentTime = new Date().getTime();
+                let tapLength = currentTime - lastTap;
+                clearTimeout(timeout);
+                if (tapLength < 500 && tapLength > 0) {
+
+		let lvl = Users.me.level
+		let pos = Scene.camera.position
+
+			if(Users.me.level >0){
+				let asiento = asientos.children[Users.me.level-1];
+				asiento.material.opacity= 0.1
+				Users.me.level = 0
+				Scene.camera.position.set(22.77595307167979, 1.6999999999997357, 335.2361828277905)
+				Scene.controls.vel = (1 + parseFloat(document.querySelector("#velocidad").value)) / 100
+				return
+			}
+			let res = inside([pos.x, pos.z], EntradaVrtx)
+			console.info("RES",res)
+			if(res){
+				Users.me.level = 1+Math.floor(Math.random()*16)
+				Scene.controls.vel = 0
+			}
+
+
+                        event.preventDefault();
+                }else {
+                        timeout = setTimeout(function() {
+                                clearTimeout(timeout);
+                        }, 500);
+                }
+                lastTap = currentTime;
+        });
+
+
+}
+
+function detectMob() {
+    const toMatch = [
+        /Android/i,
+        /webOS/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i
+    ];
+    return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+    });
 }

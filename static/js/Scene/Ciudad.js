@@ -4,7 +4,7 @@ export const addCiudad = function(Scene){
 	let cityGeometry = new THREE.TorusKnotBufferGeometry(15, 0.5, 100, 16 );
 	var cityMaterial = new THREE.MeshStandardMaterial( {
 		color: 0xfaff6b,
-		metalness: 0.9,
+		metalness: 0.2,
 		roughness: 0.1,
 		//envmap: scene.background,
 		//side: THREE.DoubleSide,
