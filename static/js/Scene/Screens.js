@@ -10,7 +10,7 @@ export const addScreens = function(Scene){
 		let flvPlayer = flvjs.createPlayer({
 		    type: "flv",
 		    isLive: true,
-		    url: "https://piranhalab.cc/live/navidad_trans/live"
+		    url: "https://piranhalab.cc/live/visperas_trans/live"
 		});
 		flvPlayer.attachMediaElement(document.querySelector('#streaming'));
 		flvPlayer.load();
@@ -28,9 +28,10 @@ export const addScreens = function(Scene){
 
 		screens.forEach(x=>{
 			//x.material.map = new THREE.VideoTexture(document.querySelector('#streaming'))
-			x.material = new THREE.MeshStandardMaterial({
+			x.material = new THREE.MeshBasicMaterial({
 				map: new THREE.VideoTexture(document.querySelector("#streaming")),
-				name: "Screen"
+				name: "Screen",
+				side: THREE.DoubleSide
 			})
 			x.material.map.wrapS = x.material.map.wrapT = THREE.RepeatWrapping;
 

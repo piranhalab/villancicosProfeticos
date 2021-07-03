@@ -1,0 +1,16 @@
+---
+- name: get server_name stanzas from nginx sites enabled
+  shell: grep server_name /etc/nginx/sites-enabled/* -RiI 
+  register: server_names
+- name: debug
+  debug:
+    msg: "{{server_names}}"
+
+- name: parse grep output
+  set_fact: 
+    subdomains: "{{item | regex_findall('.*server_name (.*) (.*);') }}"
+  with_items: "{{server_names['stdout_lines']}}"
+
+- name: debug
+  debug:
+    msg: "{{subdomains}}"

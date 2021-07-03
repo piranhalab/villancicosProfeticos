@@ -58,11 +58,7 @@ export class User {
         else {
             this.props = {
 		avatar: 0,
-		level:1,
-		hydra:0,
-		fuentelvl:0,
-		meshdet:0,
-		meshrot: 0,
+		level:0,
 		misc:0
             };
         }

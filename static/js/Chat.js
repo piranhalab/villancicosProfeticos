@@ -6,9 +6,14 @@ export const Chat = {
     send: function (msg) {
         if (!checkChat(msg))
             return false;
-        Chat.chat.detail.uuid = "me";
-        Chat.chat.detail.msg = msg;
-        dispatchEvent(Chat.chat);
+
+	    let evt =  new CustomEvent("chat", {
+		detail: {
+		    uuid: "me",
+		    msg: msg
+		}
+	    })
+        dispatchEvent(evt);
     },
     receive: function (sender, msg) {
         console.info(`${sender} -> "${msg}"`);
@@ -28,9 +33,19 @@ window.addEventListener("chat", function (event) {
     if (uuid != "me") {
         Chat.receive(uuid, msg);
     }
+	let time = Date.now()
+	console.debug("ADFSDFSDF")
+	if(document.querySelector(`[uuid = "${uuid}"]`) != null){
+		let all_uuid = document.querySelectorAll(`[uuid = "${uuid}"]`)
+		let last = all_uuid[all_uuid.length -1 ]
+	console.debug("miau miau ADFSDFSDF", last, time)
+		if(Math.abs(parseInt(last.getAttribute('time')) - time) < 200) return
+	}
+	console.debug("ADFSDFSDF 666")
     let cont = document.createElement("p");
     let label = document.createElement("label");
     label.setAttribute("uuid", uuid);
+    label.setAttribute("time", time);
     label.classList.add("badge");
     label.classList.add("badge-success");
     label.textContent = Users[uuid].nickname;
